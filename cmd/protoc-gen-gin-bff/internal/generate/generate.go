@@ -237,9 +237,9 @@ func (g *gen) genMethod(i *router) {
 	service += fmt.Sprintf("raw = []byte(%#v)\n", "{}")
 	service += fmt.Sprintf("}\n")
 	service += fmt.Sprintf("req := new(%s)\n", g.formatType(i.input))
-	if _, ok := g.pkgExists["github.com/codermuhao/tools/xjson"]; !ok {
-		g.pkgs = append(g.pkgs, pkgImport{url: "github.com/codermuhao/tools/xjson"})
-		g.pkgExists["github.com/codermuhao/tools/xjson"] = struct{}{}
+	if _, ok := g.pkgExists["git.woa.com/enbox/enkits/xjson"]; !ok {
+		g.pkgs = append(g.pkgs, pkgImport{url: "git.woa.com/enbox/enkits/xjson"})
+		g.pkgExists["git.woa.com/enbox/enkits/xjson"] = struct{}{}
 	}
 	service += fmt.Sprintf("if err := xjson.Unmarshal(raw, req); err != nil {\n")
 	service += fmt.Sprintf("b.errorFunc(ctx, err)\n")
@@ -248,9 +248,9 @@ func (g *gen) genMethod(i *router) {
 	if !noValidate[strings.Trim(i.input, ".")] {
 		service += fmt.Sprintf("if err := req.Validate(); err != nil {\n")
 		service += fmt.Sprintf("if e, ok := err.(%sValidationError); ok {\n", g.formatType(i.input))
-		if _, ok := g.pkgExists["github.com/codermuhao/tools/xerrors"]; !ok {
-			g.pkgs = append(g.pkgs, pkgImport{url: "github.com/codermuhao/tools/xerrors"})
-			g.pkgExists["github.com/codermuhao/tools/xerrors"] = struct{}{}
+		if _, ok := g.pkgExists["git.woa.com/enbox/enkits/xerrors"]; !ok {
+			g.pkgs = append(g.pkgs, pkgImport{url: "git.woa.com/enbox/enkits/xerrors"})
+			g.pkgExists["git.woa.com/enbox/enkits/xerrors"] = struct{}{}
 		}
 		service += fmt.Sprintf("b.errorFunc(ctx, xerrors.NewReasonError(%#v+e.Field(), e.Error()))\n",
 			"InvalidParameter.")

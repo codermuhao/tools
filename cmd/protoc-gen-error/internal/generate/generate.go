@@ -28,7 +28,7 @@ var SupportedFeatures = uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPT
 // NewGen create a gen instance
 func NewGen(g *protogen.Plugin) *gen {
 	return &gen{g: g, pkgs: []pkgImport{
-		{url: "github.com/codermuhao/tools/xerrors"},
+		{url: "git.woa.com/enbox/enkits/xerrors"},
 	}}
 }
 

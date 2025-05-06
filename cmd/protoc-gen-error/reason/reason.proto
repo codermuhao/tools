@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package reason;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/codermuhao/tools/cmd/protoc-gen-error/reason;reason";
+
+enum PrefixErrorReason {
+  Reserved = 0;
+  InternalError = 1;
+  InvalidParameter = 2;
+  UnknownParameter = 3;
+  AuthFailure = 4;
+  InvalidAction = 5;
+  UnauthorizedOperation = 6;
+  ResourceNotFound = 7;
+  FailedOperation = 8;
+}
+
+extend google.protobuf.EnumOptions {
+  bool enable = 1108;
+}
+
+extend google.protobuf.EnumValueOptions {
+  string message = 1109;
+  PrefixErrorReason prefix = 1110;
+}

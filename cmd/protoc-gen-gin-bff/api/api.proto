@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package api;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/codermuhao/tools/cmd/protoc-gen-gin-bff/api;api";
+
+extend google.protobuf.MethodOptions {
+  RouterRule router = 71295728;
+}
+
+message RouterRule {
+  string group = 1;
+}

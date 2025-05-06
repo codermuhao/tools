@@ -1,0 +1,13 @@
+syntax = "proto3";
+package gateway;
+option go_package = "testdata/proto;error";
+
+import "reason/reason.proto";
+
+enum UserErrorReason {
+    option (reason.enable) = true;
+    UserNotFound = 0 [(reason.message) = "用户不存在", (reason.prefix) = FailedOperation];
+    UserPasswordError = 1 [(reason.message) = "用户密码错误"];
+    // 测试错误
+    UserNameError = 2 [(reason.prefix) = UnauthorizedOperation];
+}

@@ -1,0 +1,10 @@
+syntax = "proto3";
+package other.include;
+option go_package = "testdata/proto/other;include";
+
+message User {
+  string id = 1;
+  string username = 2 [json_name="Username"];
+  string password = 3;
+  string phone = 4;
+}

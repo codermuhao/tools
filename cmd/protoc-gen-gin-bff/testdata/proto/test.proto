@@ -1,0 +1,85 @@
+syntax = "proto3";
+package gateway;
+option go_package = "testdata/proto;gateway";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "api/api.proto";
+import "other/include/include.proto";
+
+message ReqIds {
+  repeated uint64 ids = 1;
+}
+
+message ReqId {
+  uint64 id = 1;
+}
+
+message RspNames {
+  map<uint64, string> names = 1;
+}
+
+message ReqRegister {
+  string username = 1;
+  string password = 2;
+  string phone = 3;
+}
+
+message Shop {
+  string id = 1;
+  string name = 2;
+}
+
+service Iam {
+  rpc GetNames (ReqIds) returns (RspNames) {
+    option (google.api.http) = {
+      post: "/iam/get_names",
+      body: "*"
+    };
+    option (api.router) = {
+      group: "/iam"
+    };
+  };
+
+  rpc GetOne (ReqId) returns (other.include.User) {
+    option (google.api.http) = {
+      post: "/iam/get",
+      body: "*"
+    };
+    option (api.router) = {
+      group: "/iam"
+    };
+  };
+
+  rpc Register(ReqRegister) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/iam/register",
+      body: "*"
+    };
+    option (api.router) = {
+      group: "/iam"
+    };
+  }
+}
+
+service Shops {
+  rpc GetNames (ReqIds) returns (RspNames) {
+    option (google.api.http) = {
+      post: "/shop/names",
+      body: "*"
+    };
+    option (api.router) = {
+      group: "/shop"
+    };
+  };
+
+  rpc GetOne (ReqId) returns (Shop) {
+    option (google.api.http) = {
+      post: "/shop/get",
+      body: "*"
+    };
+    option (api.router) = {
+      group: "/shop"
+    };
+  };
+}
